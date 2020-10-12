@@ -1,9 +1,10 @@
-package com.gmail.lyohakasianik.solveittest.repository.entity
+package com.gmail.lyohakasianik.solveittest.repository.entity.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "person")
 data class PersonForDb(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,

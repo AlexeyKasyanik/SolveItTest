@@ -2,10 +2,9 @@ package com.gmail.lyohakasianik.solveittest.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.gmail.lyohakasianik.solveittest.repository.entity.PersonAndSpecialty
-import com.gmail.lyohakasianik.solveittest.repository.entity.PersonForDb
-import com.gmail.lyohakasianik.solveittest.repository.entity.Response
-import com.gmail.lyohakasianik.solveittest.repository.entity.SpecialtyForDb
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonAndSpecialty
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonForDb
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.SpecialtyForDb
 
 @Database(
     entities = [PersonAndSpecialty::class, PersonForDb::class, SpecialtyForDb::class],

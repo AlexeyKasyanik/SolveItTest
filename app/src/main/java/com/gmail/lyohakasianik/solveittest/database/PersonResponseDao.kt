@@ -1,19 +1,17 @@
 package com.gmail.lyohakasianik.solveittest.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Transaction
-import com.gmail.lyohakasianik.solveittest.repository.entity.PersonAndSpecialty
-import com.gmail.lyohakasianik.solveittest.repository.entity.PersonForDb
-import com.gmail.lyohakasianik.solveittest.repository.entity.Response
-import com.gmail.lyohakasianik.solveittest.repository.entity.SpecialtyForDb
+import androidx.room.*
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonAndSpecialty
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonForDb
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.SpecialtyForDb
+import com.gmail.lyohakasianik.solveittest.repository.entity.retrofit.Response
 
 @Dao
 abstract class PersonResponseDao {
 
     @Transaction
     open fun insert(response: Response) {
+        clearTable()
 
         for (person in response.listPerson) {
 
@@ -29,9 +27,19 @@ abstract class PersonResponseDao {
 
             for (specialty in person.specialty) {
                 val specialtyId =
-                    insert(SpecialtyForDb(0, specialty.specialtyId, specialty.specialtyName))
+                    insert(
+                        SpecialtyForDb(
+                            specialty.specialtyId,
+                            specialty.specialtyName
+                        )
+                    )
 
-                insert(PersonAndSpecialty(personId, specialtyId))
+                insert(
+                    PersonAndSpecialty(
+                        personId,
+                        specialtyId
+                    )
+                )
             }
         }
     }
@@ -44,4 +52,17 @@ abstract class PersonResponseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(personAndSpecialty: PersonAndSpecialty)
+
+    @Query("DELETE FROM person_and_specialty")
+    abstract fun clearTable()
+
+    @Query("SELECT * FROM specialty")
+    abstract fun getListSpecialty(): List<SpecialtyForDb>
+
+    @Query("SELECT person.* FROM person_and_specialty, person WHERE person_and_specialty.personId = person.id AND person_and_specialty.specialtyId = :idSpecialty")
+    abstract fun getPersonForSpecialty(idSpecialty: Long): List<PersonForDb>
+
+    @Query("SELECT * FROM person WHERE person.id = :idPerson")
+    abstract fun getInformPerson(idPerson: Long): PersonForDb
+
 }

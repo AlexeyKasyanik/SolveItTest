@@ -1,4 +1,4 @@
-package com.gmail.lyohakasianik.solveittest.repository.entity
+package com.gmail.lyohakasianik.solveittest.repository.entity.retrofit
 
 import com.google.gson.annotations.SerializedName
 

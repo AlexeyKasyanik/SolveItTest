@@ -14,7 +14,7 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        database = Room.databaseBuilder(this, PersonResponseDatabase::class.java, "name")
+        database = Room.databaseBuilder(this, PersonResponseDatabase::class.java, "name.db")
             .fallbackToDestructiveMigration()
             .build()
     }

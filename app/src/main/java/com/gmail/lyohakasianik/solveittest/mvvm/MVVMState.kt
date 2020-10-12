@@ -1,8 +1,12 @@
 package com.gmail.lyohakasianik.solveittest.mvvm
 
-import com.gmail.lyohakasianik.solveittest.repository.entity.Response
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonForDb
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.SpecialtyForDb
 
 sealed class MVVMState {
-    class Data(val responsePerson: Response): MVVMState()
-    class Error(val throwable: Throwable): MVVMState()
+    class DataSpecialty(val listSpecialtyForDb: List<SpecialtyForDb>) : MVVMState()
+    class DataPersonForSpecialty(val listPersonForSpecialty: List<PersonForDb>) : MVVMState()
+    class DataPerson(val personForDb: PersonForDb) : MVVMState()
+
+    class Error(val throwable: Throwable) : MVVMState()
 }
