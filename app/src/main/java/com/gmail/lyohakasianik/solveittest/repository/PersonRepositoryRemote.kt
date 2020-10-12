@@ -1,5 +1,6 @@
 package com.gmail.lyohakasianik.solveittest.repository
 
+import android.util.Log
 import com.gmail.lyohakasianik.solveittest.database.PersonResponseDao
 import com.gmail.lyohakasianik.solveittest.repository.entity.Response
 import io.reactivex.Single
@@ -12,8 +13,8 @@ class PersonRepositoryRemote(
         return api.getResponsePerson().doOnSuccess {
             personResponseDao.insert(it)
         }.onErrorResumeNext {
-            if (personResponseDao.get() == Response(listOf())) Single.error(it)
-            else Single.just(personResponseDao.get())
+            Log.e("WWW", it.toString())
+            Single.just(Response(listOf()))
         }
     }
 }
