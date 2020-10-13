@@ -5,10 +5,12 @@ import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonAndSpecial
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonForDb
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.SpecialtyForDb
 import com.gmail.lyohakasianik.solveittest.repository.entity.retrofit.Response
+import com.gmail.lyohakasianik.solveittest.utils.NameUtils.getNameWithFirstLetterUpperCase
 
 @Dao
 abstract class PersonResponseDao {
 
+    @ExperimentalStdlibApi
     @Transaction
     open fun insert(response: Response) {
         clearTable()
@@ -18,10 +20,10 @@ abstract class PersonResponseDao {
             val personId = insert(
                 PersonForDb(
                     0,
-                    person.firstName,
-                    person.lastName,
-                    person.birthday,
-                    person.avatarUrl
+                    getNameWithFirstLetterUpperCase(person.firstName),
+                    getNameWithFirstLetterUpperCase(person.lastName),
+                    person.birthday ?: "-",
+                    person.avatarUrl ?: ""
                 )
             )
 

@@ -10,6 +10,7 @@ class PersonRepositoryRemote(
     private val api: Api,
     private val personResponseDao: PersonResponseDao
 ) : ResponseRepository {
+    @ExperimentalStdlibApi
     override fun getResponsePerson(): Single<Response> {
         return api.getResponsePerson().doOnSuccess {
             personResponseDao.insert(it)

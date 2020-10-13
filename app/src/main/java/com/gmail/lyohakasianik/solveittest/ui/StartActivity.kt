@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gmail.lyohakasianik.solveittest.R
 import com.gmail.lyohakasianik.solveittest.ui.specialty.ListSpecialtyFragment
 
-
+@ExperimentalStdlibApi
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

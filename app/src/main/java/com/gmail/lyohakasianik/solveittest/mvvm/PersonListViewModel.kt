@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class PersonViewModel : ViewModel() {
+class PersonListViewModel: ViewModel() {
 
     private var disposable: Disposable? = null
     private var dataBase = App.instance.getDatabase().getPersonResponseDao()
@@ -16,12 +16,13 @@ class PersonViewModel : ViewModel() {
         MutableLiveData<MVVMState>()
     }
 
-    fun getPersonInform(idPerson: Long) {
-        disposable = Observable.fromCallable { dataBase.getInformPerson(idPerson) }
+
+    fun getPersonsForSpecialty(idSpecialty: Long) {
+        disposable = Observable.fromCallable { dataBase.getPersonForSpecialty(idSpecialty) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                state.value = MVVMState.DataPerson(it)
+                state.value = MVVMState.DataPersonForSpecialty(it)
             }, {
                 state.value = MVVMState.Error(it)
             })

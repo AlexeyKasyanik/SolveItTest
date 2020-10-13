@@ -12,23 +12,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.lyohakasianik.solveittest.R
 import com.gmail.lyohakasianik.solveittest.app.App
 import com.gmail.lyohakasianik.solveittest.mvvm.MVVMState
-import com.gmail.lyohakasianik.solveittest.mvvm.PersonViewModel
+import com.gmail.lyohakasianik.solveittest.mvvm.PersonListViewModel
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonForDb
+import com.gmail.lyohakasianik.solveittest.ui.PersonFragment
 import com.gmail.lyohakasianik.solveittest.ui.listPerson.adapterListPersons.PersonAdapter
+import com.gmail.lyohakasianik.solveittest.utils.PERSON_ID
+import com.gmail.lyohakasianik.solveittest.utils.SPECIALTY_ID
 import com.gmail.lyohakasianik.solveittest.utils.ToastUtils
 import com.gmail.lyohakasianik.solveittest.utils.VerticalSpaceItemDecoration
 import kotlinx.android.synthetic.main.list_person_fragment.*
-import kotlinx.android.synthetic.main.list_specialty_fragment.*
 
-class ListPersonFragment: Fragment() , PersonAdapter.OnClickListener{
+class ListPersonFragment : Fragment(), PersonAdapter.OnClickListener {
 
-    private lateinit var viewModel: PersonViewModel
+    private lateinit var viewModel: PersonListViewModel
     private var idSpecialty = ""
     private lateinit var adapterPersons: PersonAdapter
     private val observable = Observer<MVVMState> {
         when (it) {
             is MVVMState.DataPersonForSpecialty -> {
-                Log.e("WWW", it.listPersonForSpecialty.toString())
                 adapterPersons.updateListPersons(it.listPersonForSpecialty)
             }
             is MVVMState.Error -> {
@@ -46,7 +47,7 @@ class ListPersonFragment: Fragment() , PersonAdapter.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        idSpecialty = this.arguments?.getString("ID").toString()
+        idSpecialty = this.arguments?.getString(SPECIALTY_ID).toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,12 +71,19 @@ class ListPersonFragment: Fragment() , PersonAdapter.OnClickListener{
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(PersonViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(PersonListViewModel::class.java)
         viewModel.state.observe(viewLifecycleOwner, observable)
         viewModel.getPersonsForSpecialty(idSpecialty.toLong())
     }
 
     override fun onItemClick(item: PersonForDb) {
-        Log.e("RRR", item.toString())
+        val personFragment = PersonFragment()
+        val bundle = Bundle()
+        bundle.putString(PERSON_ID, item.id.toString())
+        personFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.containerForFragment,
+            personFragment
+        ).addToBackStack(null).commit()
     }
 }

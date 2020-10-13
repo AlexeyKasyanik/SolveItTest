@@ -1,7 +1,6 @@
 package com.gmail.lyohakasianik.solveittest.ui.specialty
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +16,12 @@ import com.gmail.lyohakasianik.solveittest.mvvm.SpecialtyViewModel
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.SpecialtyForDb
 import com.gmail.lyohakasianik.solveittest.ui.listPerson.ListPersonFragment
 import com.gmail.lyohakasianik.solveittest.ui.specialty.adapterSpecialty.SpecialtyAdapter
+import com.gmail.lyohakasianik.solveittest.utils.SPECIALTY_ID
 import com.gmail.lyohakasianik.solveittest.utils.ToastUtils.showToast
 import com.gmail.lyohakasianik.solveittest.utils.VerticalSpaceItemDecoration
 import kotlinx.android.synthetic.main.list_specialty_fragment.*
 
-
+@ExperimentalStdlibApi
 class ListSpecialtyFragment : Fragment(), SpecialtyAdapter.OnClickListener {
 
     private lateinit var viewModel: SpecialtyViewModel
@@ -74,17 +74,13 @@ class ListSpecialtyFragment : Fragment(), SpecialtyAdapter.OnClickListener {
     }
 
     override fun onItemClick(item: SpecialtyForDb) {
-        Log.e("QQQ", item.specialtyId.toString())
-
-        val f = ListPersonFragment()
+        val listPersonFragment = ListPersonFragment()
         val bundle = Bundle()
-        bundle.putString("ID", item.specialtyId.toString())
-        f.arguments = bundle
-        val transaction = activity!!.supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.containerForFragment,
-            f
-        )
-        transaction.addToBackStack(null)
-        transaction.commit()
+        bundle.putString(SPECIALTY_ID, item.specialtyId.toString())
+        listPersonFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.containerForFragment,
+            listPersonFragment
+        ).addToBackStack(null).commit()
     }
 }
