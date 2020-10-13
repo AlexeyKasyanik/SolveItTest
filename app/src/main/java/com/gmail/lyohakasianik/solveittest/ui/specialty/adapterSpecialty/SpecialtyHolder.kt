@@ -1,4 +1,4 @@
-package com.gmail.lyohakasianik.solveittest.ui.adapter
+package com.gmail.lyohakasianik.solveittest.ui.specialty.adapterSpecialty
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
