@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:padding="24dp"
-    android:background="@color/colorAccent">
+    android:background="@drawable/item_ripple">
 
     <TextView
         android:id="@+id/namePersonTextView"
