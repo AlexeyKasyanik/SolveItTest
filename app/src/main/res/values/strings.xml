@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SolveItTest</string>
+    <string name="app_name" translatable="false">SolveItTest</string>
     <string name="error_download">Error download</string>
     <string name="error_format">Wrong format</string>
 </resources>

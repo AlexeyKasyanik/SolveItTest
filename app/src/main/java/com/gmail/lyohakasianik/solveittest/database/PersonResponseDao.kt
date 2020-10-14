@@ -3,6 +3,7 @@ package com.gmail.lyohakasianik.solveittest.database
 import androidx.room.*
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonAndSpecialty
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonForDb
+import com.gmail.lyohakasianik.solveittest.repository.entity.db.PersonWitchSpecialty
 import com.gmail.lyohakasianik.solveittest.repository.entity.db.SpecialtyForDb
 import com.gmail.lyohakasianik.solveittest.repository.entity.retrofit.Response
 import com.gmail.lyohakasianik.solveittest.utils.NameUtils.getNameWithFirstLetterUpperCase
@@ -65,6 +66,7 @@ abstract class PersonResponseDao {
     abstract fun getPersonForSpecialty(idSpecialty: Long): List<PersonForDb>
 
     @Query("SELECT * FROM person WHERE person.id = :idPerson")
-    abstract fun getInformPerson(idPerson: Long): PersonForDb
+    @Transaction
+    abstract fun getInformPerson(idPerson: Long): PersonWitchSpecialty
 
 }

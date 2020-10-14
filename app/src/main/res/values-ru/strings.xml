@@ -1,0 +1,4 @@
+<resources>
+    <string name="error_download">Ошибка загрузки</string>
+    <string name="error_format">Невенрный формат</string>
+</resources>

@@ -11,7 +11,7 @@ class PersonHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContainer 
         get() = itemView
 
     fun bind(person: PersonForDb) {
-        namePersonTextView.text = person.firstName.toString()
+        namePersonTextView.text = person.firstName
         lastNamePersonTextView.text = person.lastName
         agePersonTextView.text = person.birthday.toString()
     }

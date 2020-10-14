@@ -1,7 +1,5 @@
 package com.gmail.lyohakasianik.solveittest.repository
 
-import android.util.Log
-import com.gmail.lyohakasianik.solveittest.app.App
 import com.gmail.lyohakasianik.solveittest.database.PersonResponseDao
 import com.gmail.lyohakasianik.solveittest.repository.entity.retrofit.Response
 import io.reactivex.Single

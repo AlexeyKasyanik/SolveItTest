@@ -1,25 +1,22 @@
 package com.gmail.lyohakasianik.solveittest.app
 
 import android.app.Application
-import androidx.room.Room
-import com.gmail.lyohakasianik.solveittest.database.PersonResponseDatabase
+import com.gmail.lyohakasianik.solveittest.di.AppComponent
+import com.gmail.lyohakasianik.solveittest.di.DaggerAppComponent
 
+@ExperimentalStdlibApi
 class App : Application() {
     companion object {
-        lateinit var database: PersonResponseDatabase
+
+        lateinit var appComponent: AppComponent
         lateinit var instance: App
     }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-
-        database = Room.databaseBuilder(this, PersonResponseDatabase::class.java, "name.db")
-            .fallbackToDestructiveMigration()
+        appComponent = DaggerAppComponent.builder()
+            .application(this)
             .build()
-    }
-
-    fun getDatabase(): PersonResponseDatabase {
-        return database
+        instance = this
     }
 }

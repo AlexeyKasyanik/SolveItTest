@@ -6,7 +6,7 @@ import com.gmail.lyohakasianik.solveittest.app.App
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-
+@ExperimentalStdlibApi
 object DateUtils {
 
     private val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
